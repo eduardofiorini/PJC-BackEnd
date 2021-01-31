@@ -17,7 +17,7 @@ A documentação foi gerada usando o PostMan e está disponível no link abaixo.
 As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta maneira seguindo o fluxo de um projeto MVC.   
 - [X] Criação do README;
 - [X] Add Framework CodeIgniter 4;
-- [ ] Implementar Migrations;
+- [X] Implementar Migrations;
 - [ ] Implementar Models;
 - [ ] Implementar JWT;
 - [ ] Implementar Validações;
