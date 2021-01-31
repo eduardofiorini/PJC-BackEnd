@@ -44,10 +44,6 @@ class ComposerStaticInit4986bcffe65b47c4a287643753cacc49
         array (
             'Kint\\' => 5,
         ),
-        'F' => 
-        array (
-            'Faker\\' => 6,
-        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -97,10 +93,6 @@ class ComposerStaticInit4986bcffe65b47c4a287643753cacc49
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
-        ),
-        'Faker\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

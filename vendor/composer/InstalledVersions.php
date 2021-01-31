@@ -14,24 +14,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'v4.0.4',
-    'version' => '4.0.4.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '339ea98b5ac51ade618be695b2b0aa0b3d71b970',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
   array (
     'codeigniter4/appstarter' => 
     array (
-      'pretty_version' => 'v4.0.4',
-      'version' => '4.0.4.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '339ea98b5ac51ade618be695b2b0aa0b3d71b970',
     ),
     'codeigniter4/framework' => 
     array (
@@ -50,16 +50,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'd56bf6102915de5702778fe20f2de3b2fe570b5b',
-    ),
-    'fzaninotto/faker' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '1.9.x-dev',
-      ),
-      'reference' => '5ffe7db6c80f441f150fc88008d64e64af66634b',
     ),
     'kint-php/kint' => 
     array (
