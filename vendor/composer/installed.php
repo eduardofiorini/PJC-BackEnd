@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '339ea98b5ac51ade618be695b2b0aa0b3d71b970',
+    'reference' => 'ec029380e8b27fcff3314c68e92030ee0504a30e',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '339ea98b5ac51ade618be695b2b0aa0b3d71b970',
+      'reference' => 'ec029380e8b27fcff3314c68e92030ee0504a30e',
     ),
     'codeigniter4/framework' => 
     array (
@@ -37,6 +37,15 @@
       array (
       ),
       'reference' => 'd56bf6102915de5702778fe20f2de3b2fe570b5b',
+    ),
+    'firebase/php-jwt' => 
+    array (
+      'pretty_version' => 'v5.2.0',
+      'version' => '5.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'feb0e820b8436873675fd3aca04f3728eb2185cb',
     ),
     'kint-php/kint' => 
     array (

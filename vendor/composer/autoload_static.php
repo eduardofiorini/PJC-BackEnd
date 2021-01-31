@@ -44,6 +44,10 @@ class ComposerStaticInit4986bcffe65b47c4a287643753cacc49
         array (
             'Kint\\' => 5,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -93,6 +97,10 @@ class ComposerStaticInit4986bcffe65b47c4a287643753cacc49
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

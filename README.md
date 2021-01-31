@@ -37,6 +37,8 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
     - <https://github.com/firebase/php-jwt>
 1. Composer
     - <https://getcomposer.org/>
+1. Packagist
+    - <https://packagist.org/>
 1. MySQL
     - <https://www.mysql.com/>
 1. MinIO
@@ -52,4 +54,6 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 * <https://docs.min.io/>
 * <https://github.com/firebase/php-jwt>
 * <https://codeigniter.com/user_guide/index.html>
+* <https://packagist.org/packages/firebase/php-jwt>
+* <https://drive.google.com/file/d/122ulw68Ez_tmXq_2wex3AetN5cpH4g0c/view>
 
