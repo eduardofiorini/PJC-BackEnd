@@ -21,8 +21,8 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Implementar Models;
 - [X] Implementar JWT;
 - [X] Implementar Validações;
-- [ ] Implementar Limitar Request (AntiDdos);
-- [ ] Implementar Limitar Acesso Externo;
+- [X] Implementar Limitar Request (AntiDdos);
+- [X] Implementar Limitar Acesso Externo;
 - [ ] Implementar Controllers;
 - [ ] Implementar Rotas;
 - [ ] Implementar Paginação;

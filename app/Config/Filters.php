@@ -1,6 +1,7 @@
 <?php namespace Config;
 
 use App\Filters\JWTAuthFilter;
+use App\Filters\RateLimitFilter;
 use CodeIgniter\Config\BaseConfig;
 
 class Filters extends BaseConfig
@@ -12,6 +13,7 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'auth'     => JWTAuthFilter::class,
+        'limit'     => RateLimitFilter::class,
 	];
 
 	// Always applied before every request
@@ -29,7 +31,10 @@ class Filters extends BaseConfig
 	// Works on all of a particular HTTP method
 	// (GET, POST, etc) as BEFORE filters only
 	//     like: 'post' => ['CSRF', 'throttle'],
-	public $methods = [];
+	public $methods = [
+        'get' => ['limit'],
+        'post' => ['limit']
+    ];
 
 	// List filter aliases and any before/after uri patterns
 	// that they should run on, like:

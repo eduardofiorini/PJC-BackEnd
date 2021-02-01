@@ -1,11 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
-use ReflectionException;
-use App\Models\AuthModel;
 
 class Auth extends BaseController
 {

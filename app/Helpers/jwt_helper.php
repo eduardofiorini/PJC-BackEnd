@@ -44,7 +44,7 @@ if(!function_exists('jwtSignature')) {
     {
         $key = getenv('jwt.privateKey');
         $time = time();
-        $expiration = $time + getenv('jwt.lifetime');
+        $expiration = $time + getenv('jwt.lifeTime');
         $payload = [
             'email' => $email,
             'iat' => $time,
