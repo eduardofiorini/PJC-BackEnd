@@ -9,9 +9,9 @@ use Firebase\JWT\JWT;
  * @return string
  */
 if(!function_exists('jwtRequest')) {
-    function jwtRequest(string $authHeader){
+    function jwtRequest($authHeader){
         if (is_null($authHeader)) {
-            throw new Exception('Token jwt ausente ou inválido.');
+            throw new Exception('Token de acesso jwt ausente ou inválido.');
         }
         return explode(' ', $authHeader)[1];
     }
