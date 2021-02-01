@@ -15,6 +15,10 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\IncomingRequest;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Validation\Exceptions\ValidationException;
+use Config\Services;
 
 class BaseController extends Controller
 {
@@ -43,4 +47,49 @@ class BaseController extends Controller
 		// $this->session = \Config\Services::session();
 	}
 
+    /**
+     * Faz o retorno da resposta do servidor.
+     * @access public
+     * @param array $responseBody
+     * @param int $code
+     * @return string
+     */
+    public function baseResponse(array $responseBody, int $code = ResponseInterface::HTTP_OK)
+    {
+        return $this->response->setStatusCode($code)->setJSON($responseBody)??'';
+    }
+
+    /**
+     * Faz a solicitação dos parâmetros e do body.
+     * @access public
+     * @param IncomingRequest $request
+     * @return array
+     */
+    public function baseRequest(IncomingRequest $request){
+        return $request->getVar()??[];
+    }
+
+    /**
+     * Faz a validação das regras.
+     * @access public
+     * @param array $input
+     * @param array $rules
+     * @param array $messages
+     * @return string
+     */
+    public function baseValidateRequest(array $input, array $rules, array $messages = []){
+        $this->validator = Services::Validation()->setRules($rules);
+        if (is_string($rules)) {
+            $validation = config('Validation');
+            if (!isset($validation->$rules)) {
+                throw ValidationException::forRuleNotFound($rules);
+            }
+            if (!$messages) {
+                $errorName = $rules . '_errors';
+                $messages = $validation->$errorName ?? [];
+            }
+            $rules = $validation->$rules;
+        }
+        return $this->validator->setRules($rules, $messages)->run($input);
+    }
 }

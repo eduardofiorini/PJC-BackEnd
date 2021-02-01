@@ -19,8 +19,8 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Add Framework CodeIgniter 4;
 - [X] Implementar Migrations;
 - [X] Implementar Models;
-- [ ] Implementar JWT;
-- [ ] Implementar Validações;
+- [X] Implementar JWT;
+- [X] Implementar Validações;
 - [ ] Implementar Limitar Request (AntiDdos);
 - [ ] Implementar Limitar Acesso Externo;
 - [ ] Implementar Controllers;
