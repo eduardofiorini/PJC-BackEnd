@@ -18,7 +18,7 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Criação do README;
 - [X] Add Framework CodeIgniter 4;
 - [X] Implementar Migrations;
-- [ ] Implementar Models;
+- [X] Implementar Models;
 - [ ] Implementar JWT;
 - [ ] Implementar Validações;
 - [ ] Implementar Limitar Request (AntiDdos);
