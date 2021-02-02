@@ -29,9 +29,15 @@ class Album extends ResourceController
              */
             case 'all':
                 $order = !empty($key) && strtolower($key) == 'desc' ? 'DESC' : 'ASC';
-                $data = $this->album_model->select('id_album AS id, albuns.nome AS album, artistas.nome AS artista')
-                                          ->join('artistas', 'artistas.id_artista = albuns.id_artista')
-                                          ->orderBy('albuns.nome',$order)->findAll()??[];
+                $data = [
+                    'albuns' => $this->album_model->select('id_album AS id, albuns.nome AS album, artistas.nome AS artista')
+                                                  ->join('artistas', 'artistas.id_artista = albuns.id_artista')
+                                                  ->orderBy('albuns.nome',$order)->paginate(5)??[],
+                    'page' => [
+                        'atual' => $this->album_model->pager->getCurrentPage(),
+                        'total' => $this->album_model->pager->getPageCount()
+                    ]
+                ];
                 return $this->setResponseFormat($format)->respond($data);
             /**
              * Return todos os albuns agrupados por artista.
@@ -39,16 +45,23 @@ class Album extends ResourceController
             case 'group':
                 $order = !empty($key) && strtolower($key) == 'desc' ? 'DESC' : 'ASC';
                 $albuns = $this->album_model->findAll();
-                $data = $this->artista_model->select('id_artista AS id, nome')
-                                            ->orderBy('nome',$order)->findAll()??[];
-                foreach ($data as $key=>$item){
-                    $data[$key]['albuns'] = [];
+                $artistas = $this->artista_model->select('id_artista AS id, nome')
+                                            ->orderBy('nome',$order)->paginate(2)??[];
+                foreach ($artistas as $key=>$item){
+                    $artistas[$key]['albuns'] = [];
                     foreach ($albuns as $subitem){
                        if($subitem['id_artista'] == $item['id']){
-                           array_push($data[$key]['albuns'],$subitem);
+                           array_push($artistas[$key]['albuns'],$subitem);
                         }
                     }
                 }
+                $data = [
+                    'artistas' => $artistas,
+                    'page' => [
+                        'atual' => $this->artista_model->pager->getCurrentPage(),
+                        'total' => $this->artista_model->pager->getPageCount()
+                    ]
+                ];
                 return $this->setResponseFormat($format)->respond($data);
             /**
              * Return os album pelo ID.

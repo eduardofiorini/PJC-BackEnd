@@ -25,8 +25,8 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Implementar Limitar Acesso Externo;
 - [X] Implementar Controllers;
 - [X] Implementar Rotas;
-- [ ] Implementar Paginação;
-- [ ] Implementar Ordenação;
+- [X] Implementar Paginação;
+- [X] Implementar Ordenação;
 - [ ] Implementar Upload MinIO;
 - [ ] Dockerizar Aplicação;
 
