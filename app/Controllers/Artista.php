@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
+use App\Models\AlbumModel;
 use App\Models\ArtistaModel;
 
 class Artista extends ResourceController
@@ -10,9 +11,11 @@ class Artista extends ResourceController
     use ResponseTrait;
 
     private $artista_model;
+    private $album_model;
 
     public function __construct() {
         $this->artista_model = new ArtistaModel();
+        $this->album_model = new AlbumModel();
     }
 
     public function index($format = 'json'){
@@ -32,7 +35,8 @@ class Artista extends ResourceController
              * Return os artista pelo ID.
              */
             case 'id':
-                break;
+                $data = $this->artista_model->select('id_artista AS id, nome')->where('id_artista',$key)->first()??[];
+                return $this->setResponseFormat($format)->respond($data);
             /**
              * Return buscar os artistas por nome.
              */
@@ -48,17 +52,29 @@ class Artista extends ResourceController
              * Return add artista.
              */
             case 'add':
-                break;
+                $body = $this->request->getVar() == [] ? (array) $this->request->getJSON() : $this->request->getVar();
+                if(empty($body["nome"]??"")){
+                    return $this->setResponseFormat($format)->respond(['error' => 'O parâmetro nome é nulo.']);
+                }
+                $this->artista_model->save(['nome' => $body["nome"]]);
+                return $this->setResponseFormat($format)->respond(['msg' => 'Salvo com sucesso!']);
             /**
              * Return edit artista.
              */
             case 'edit':
-                break;
+                $body = $this->request->getVar() == [] ? (array) $this->request->getJSON() : $this->request->getVar();
+                if(empty($body["nome"]??"")){
+                    return $this->setResponseFormat($format)->respond(['error' => 'O parâmetro nome é nulo.']);
+                }
+                $this->artista_model->save(['id_artista' => $key, 'nome' => $body["nome"]]);
+                return $this->setResponseFormat($format)->respond(['msg' => 'Editado com sucesso!']);
             /**
              * Return delete artista.
              */
             case 'delete':
-                break;
+                $this->artista_model->delete($key);
+                $this->album_model->where('id_artista', $key)->delete();
+                return $this->setResponseFormat($format)->respond(['msg' => 'Excluído com sucesso!']);
             /**
              * Return Default.
              */

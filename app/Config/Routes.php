@@ -61,10 +61,10 @@ $routes->post('artista/buscar/desc/','Artista::show/search/desc');
 $routes->post('artista/','Artista::show/add');
 
 //EDITAR
-$routes->put('artista/','Artista::show/edit');
+$routes->put('artista/(:num)','Artista::show/edit/$1');
 
 //DELETAR
-$routes->delete('artista/','Artista::show/delete');
+$routes->delete('artista/(:num)','Artista::show/delete/$1');
 
 //ALBUM ROUTER -----------------------------------------------------
 //------------------------------------------------------------------
@@ -73,6 +73,11 @@ $routes->delete('artista/','Artista::show/delete');
 $routes->get('album/','Album::show/all');
 $routes->get('album/asc/','Album::show/all/asc');
 $routes->get('album/desc/','Album::show/all/desc');
+
+//BUSCAR TODOS AGRUPADO POR ARTISTA
+$routes->get('album/group/','Album::show/group');
+$routes->get('album/group/asc/','Album::show/group/asc');
+$routes->get('album/group/desc/','Album::show/group/desc');
 
 //BUSCAR POR ID
 $routes->get('album/id/(:num)','Album::show/id/$1');
@@ -86,10 +91,11 @@ $routes->post('album/buscar/desc/','Album::show/search/desc');
 $routes->post('album/','Album::show/add');
 
 //EDITAR
-$routes->put('album/','Album::show/edit');
+$routes->put('album/(:num)','Album::show/edit/$1');
 
 //DELETAR
-$routes->delete('album/','Album::show/delete');
+$routes->delete('album/(:num)','Album::show/delete/$1');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing
