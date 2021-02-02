@@ -15,6 +15,36 @@ class Album extends ResourceController
     public function show($method = null, $key = null, $format = 'json'){
         switch ($method):
             /**
+             * Return todos os albuns.
+             */
+            case 'all':
+                break;
+            /**
+             * Return os album pelo ID.
+             */
+            case 'id':
+                break;
+            /**
+             * Return buscar os albuns por nome.
+             */
+            case 'search':
+                break;
+            /**
+             * Return add album.
+             */
+            case 'add':
+                break;
+            /**
+             * Return edit album.
+             */
+            case 'edit':
+                break;
+            /**
+             * Return delete album.
+             */
+            case 'delete':
+                break;
+            /**
              * Return Default.
              */
             default:

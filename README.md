@@ -24,7 +24,7 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Implementar Limitar Request (AntiDdos);
 - [X] Implementar Limitar Acesso Externo;
 - [X] Implementar Controllers;
-- [ ] Implementar Rotas;
+- [X] Implementar Rotas;
 - [ ] Implementar Paginação;
 - [ ] Implementar Ordenação;
 - [ ] Implementar Upload MinIO;

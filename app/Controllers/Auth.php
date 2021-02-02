@@ -11,7 +11,7 @@ class Auth extends BaseController
      * @access public
      * @return string
      */
-    public function credential()
+    public function index()
     {
         $rules = [
             'email' => 'required|valid_email',

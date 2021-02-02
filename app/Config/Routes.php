@@ -19,7 +19,7 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override(function(){echo json_encode(['error' => '404 - Método API não encontrado.']);});
 $routes->setAutoRoute(true);
 
 /**
@@ -30,8 +30,66 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+//HOME ROUTER ------------------------------------------------------
+//------------------------------------------------------------------
 $routes->get('/', 'Home::index');
 
+//AUTH ROUTER ------------------------------------------------------
+//------------------------------------------------------------------
+
+$routes->get('auth/','');
+$routes->post('auth/','Auth::index');
+
+//ARTISTA ROUTER ---------------------------------------------------
+//------------------------------------------------------------------
+
+//BUSCAR TODOS
+$routes->get('artista/','Artista::show/all');
+$routes->get('artista/asc/','Artista::show/all/asc');
+$routes->get('artista/desc/','Artista::show/all/desc');
+
+//BUSCAR POR ID
+$routes->get('artista/id/(:num)','Artista::show/id/$1');
+
+//BUSCAR POR NOME
+$routes->post('artista/buscar/','Artista::show/search');
+$routes->post('artista/buscar/asc/','Artista::show/search/asc');
+$routes->post('artista/buscar/desc/','Artista::show/search/desc');
+
+//ADD NOVO
+$routes->post('artista/','Artista::show/add');
+
+//EDITAR
+$routes->put('artista/','Artista::show/edit');
+
+//DELETAR
+$routes->delete('artista/','Artista::show/delete');
+
+//ALBUM ROUTER -----------------------------------------------------
+//------------------------------------------------------------------
+
+//BUSCAR TODOS
+$routes->get('album/','Album::show/all');
+$routes->get('album/asc/','Album::show/all/asc');
+$routes->get('album/desc/','Album::show/all/desc');
+
+//BUSCAR POR ID
+$routes->get('album/id/(:num)','Album::show/id/$1');
+
+//BUSCAR POR NOME
+$routes->post('album/buscar/','Album::show/search');
+$routes->post('album/buscar/asc/','Album::show/search/asc');
+$routes->post('album/buscar/desc/','Album::show/search/desc');
+
+//ADD NOVO
+$routes->post('album/','Album::show/add');
+
+//EDITAR
+$routes->put('album/','Album::show/edit');
+
+//DELETAR
+$routes->delete('album/','Album::show/delete');
 /**
  * --------------------------------------------------------------------
  * Additional Routing
