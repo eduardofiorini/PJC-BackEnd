@@ -96,6 +96,11 @@ $routes->put('album/(:num)','Album::show/edit/$1');
 //DELETAR
 $routes->delete('album/(:num)','Album::show/delete/$1');
 
+//UPLOAD IMAGEM
+$routes->post('album/upload/','Album::show/upload/$1');
+
+//BUSCA A IMAGEM
+$routes->get('album/imagem/(:segment)','Album::show/image/$1');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

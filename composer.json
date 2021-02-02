@@ -8,8 +8,9 @@
 		"php": ">=7.2",
 		"codeigniter4/framework": "^4",
 		"firebase/php-jwt": "^5.2",
-		"aws/aws-sdk-php": "^3.172"
-	},
+		"aws/aws-sdk-php": "^3.172",
+      	"ext-fileinfo": "*"
+    },
 	"require-dev": {
 		"mikey179/vfsstream": "1.6.*",
 		"phpunit/phpunit": "^8.5"

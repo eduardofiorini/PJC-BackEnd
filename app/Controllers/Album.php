@@ -5,6 +5,9 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\AlbumModel;
 use App\Models\ArtistaModel;
+use App\Models\ImagemModel;
+use Aws\S3\S3Client;
+use Aws\Exception\AwsException;
 
 class Album extends ResourceController
 {
@@ -12,10 +15,23 @@ class Album extends ResourceController
 
     private $artista_model;
     private $album_model;
+    private $imagem_model;
+    private $aws_s3;
 
     public function __construct() {
         $this->artista_model = new ArtistaModel();
         $this->album_model = new AlbumModel();
+        $this->imagem_model = new ImagemModel();
+        $this->aws_s3 = new S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'endpoint' => getenv('aws.endpoint'),
+            'use_path_style_endpoint' => true,
+            'credentials' => [
+                'key'    => getenv('aws.key'),
+                'secret' => getenv('aws.secret'),
+            ],
+        ]);
     }
 
     public function index($format = 'json'){
@@ -30,8 +46,9 @@ class Album extends ResourceController
             case 'all':
                 $order = !empty($key) && strtolower($key) == 'desc' ? 'DESC' : 'ASC';
                 $data = [
-                    'albuns' => $this->album_model->select('id_album AS id, albuns.nome AS album, artistas.nome AS artista')
+                    'albuns' => $this->album_model->select('albuns.id_album AS id, albuns.nome AS album, artistas.nome AS artista, imagens.nome AS imagem')
                                                   ->join('artistas', 'artistas.id_artista = albuns.id_artista')
+                                                  ->join('imagens', 'imagens.id_album = albuns.id_album','left')
                                                   ->orderBy('albuns.nome',$order)->paginate(5)??[],
                     'page' => [
                         'atual' => $this->album_model->pager->getCurrentPage(),
@@ -44,15 +61,18 @@ class Album extends ResourceController
              */
             case 'group':
                 $order = !empty($key) && strtolower($key) == 'desc' ? 'DESC' : 'ASC';
-                $albuns = $this->album_model->findAll();
-                $artistas = $this->artista_model->select('id_artista AS id, nome')
-                                            ->orderBy('nome',$order)->paginate(2)??[];
+                $albuns = $this->album_model->select('albuns.id_album AS id, albuns.id_artista, albuns.nome AS album, imagens.nome AS imagem')
+                    ->join('imagens', 'imagens.id_album = albuns.id_album','left')
+                    ->findAll();
+                $artistas = $this->artista_model->select('id_artista AS id, nome AS artista')
+                                                ->orderBy('nome',$order)->paginate(2)??[];
                 foreach ($artistas as $key=>$item){
                     $artistas[$key]['albuns'] = [];
                     foreach ($albuns as $subitem){
                        if($subitem['id_artista'] == $item['id']){
+                           unset($subitem['id_artista']);
                            array_push($artistas[$key]['albuns'],$subitem);
-                        }
+                       }
                     }
                 }
                 $data = [
@@ -115,6 +135,53 @@ class Album extends ResourceController
             case 'delete':
                 $this->album_model->delete($key);
                 return $this->setResponseFormat($format)->respond(['msg' => 'Excluído com sucesso!']);
+            /**
+             * Return upload image album.
+             */
+            case 'upload':
+                helper('file');
+                $file = $this->request->getFile('file');
+                if(!$file){
+                    return $this->setResponseFormat($format)->respond(['error' => 'O arquivo não foi encontrado!']);
+                }
+
+                $body = $this->request->getVar() == [] ? (array) $this->request->getJSON() : $this->request->getVar();
+                if(empty($body["id_album"]??"")){
+                    return $this->setResponseFormat($format)->respond(['error' => 'O parâmetro id_album é nulo.']);
+                }
+
+                try {
+                    $insert = $this->aws_s3->putObject([
+                        'Bucket' => 'pjc-mt-emf',
+                        'Key'    => $file->getName(),
+                        'SourceFile'   => $file->getTempName(),
+                        'ContentType' => mime_content_type($file->getTempName())
+                    ]);
+                    $this->imagem_model->save(['id_album'=>$body["id_album"],'nome'=>$file->getName()]);
+                }catch (AwsException $e) {
+                    return $this->setResponseFormat($format)->respond(['error' => $e->getMessage()]);
+                }
+
+                if($insert['@metadata']['statusCode'] == 200){
+                    return $this->setResponseFormat($format)->respond(['msg' => 'Enviado com sucesso!']);
+                }else{
+                    return $this->setResponseFormat($format)->respond(['error' => 'Ocorreu uma falha!']);
+                }
+
+            /**
+             * Return busca a imagem do album.
+             */
+            case 'image':
+                try {
+                    $retrive = $this->aws_s3->getObject([
+                        'Bucket' => 'pjc-mt-emf',
+                        'Key'    => $key
+                    ]);
+                }catch (AwsException $e) {
+                    return $this->setResponseFormat($format)->respond(['imagem' => '','error' => $e->getMessage()]);
+                }
+                return $this->setResponseFormat($format)->respond(['imagem' => 'data:image/png' . ';base64,' . base64_encode($retrive['Body'])]);
+
             /**
              * Return Default.
              */

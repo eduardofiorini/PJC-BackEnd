@@ -27,7 +27,7 @@ As prioridades estão listadas abaixo na ordem crescente, foi priorizado desta m
 - [X] Implementar Rotas;
 - [X] Implementar Paginação;
 - [X] Implementar Ordenação;
-- [ ] Implementar Upload MinIO;
+- [X] Implementar Upload MinIO;
 - [ ] Dockerizar Aplicação;
 
 ## Créditos
